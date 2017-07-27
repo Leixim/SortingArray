@@ -4,6 +4,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class Reflection {
+    static int countOfRunArray = 8;//count of sort runs for measuring different array sizes
+    static int countOfSortMethod = 0;
+    static int countOfCreateMethod = 0;
 
     public static ArrayList<ContainerOfSortTime> TimeOfSortArray() throws InstantiationException, IllegalAccessException, InvocationTargetException, IOException {
         Class createArraysClass = CreateArrays.class;
@@ -18,13 +21,13 @@ public class Reflection {
 
         for (Method createMethod : createArraysMethod) {
             if (createMethod.isAnnotationPresent(CreateMethod.class)) {
-//            if (createMethod.getParameterCount() == 1 && createMethod.getParameters()[0].toString().equals("int arg0")) {
-                int sizeOfGeneratedArray = 500;
-                for (int i = 0; i < 8; i++) {
+                countOfCreateMethod++;
+                int sizeOfGeneratedArray = 1500;
+                for (int i = 0; i < countOfRunArray; i++) {
                     int[] array = (int[]) createMethod.invoke(instanceOfCreateArray, sizeOfGeneratedArray);
                     for (Method sortMethod : sortArraysMethod) {
                         if (sortMethod.isAnnotationPresent(SortMethod.class)) {
-//                    if (sortMethod != null && sortMethod.getParameterCount() == 1 && sortMethod.getParameters()[0].toString().equals("int[] arg0")) {
+
                             ContainerOfSortTime infoContainer = new ContainerOfSortTime(); //create container to save info about sort
                             long timeOfSort = (long) sortMethod.invoke(instanceOfSortArray, (Object) array.clone());
                             infoContainer.setNameOfSort(sortMethod.getAnnotation(SortMethod.class).info());
@@ -34,12 +37,12 @@ public class Reflection {
                             arrayInfoContainers.add(infoContainer);
                         }
                     }
-                    sizeOfGeneratedArray += 1000;
+                    sizeOfGeneratedArray += 1500;
                 }
                 System.out.println();
             }
         }
-
+        countOfSortMethod = arrayInfoContainers.size() / (countOfCreateMethod * countOfRunArray);
         return arrayInfoContainers;
     }
 

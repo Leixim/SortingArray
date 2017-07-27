@@ -6,7 +6,6 @@ public class MainApp {
         for (ContainerOfSortTime containerOfSortTime : containerOfSortTimes) {
             System.out.println(containerOfSortTime);
         }
-
         CreateFillExcel.writeValueToExcel(containerOfSortTimes);
     }
 
