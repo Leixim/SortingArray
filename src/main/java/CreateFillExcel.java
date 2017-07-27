@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class CreateFillExcel {
-    public static final String OUTPUT_FILENAME ="arrays.xlsx";
+    public static final String OUTPUT_FILENAME ="Arrays.xlsx";
 
     public static void writeValueToExcel(ArrayList<ContainerOfSortTime> container) throws IOException {
     FileOutputStream fileOutputStream = new FileOutputStream(OUTPUT_FILENAME);
     Workbook workbook = new XSSFWorkbook();
-    int id = 0;//start position for selecting specific kind of sort in container
-    fillSheet(container, workbook.createSheet(container.get(0).getTypeOfArray()), id);
+    int indexOfArrayContainer = 0;
+    fillSheet(container, workbook.createSheet(container.get(0).getTypeOfArray()), indexOfArrayContainer);
         for (int i = 1; i < container.size(); i++) {
             if (!Objects.equals(container.get(i).getTypeOfArray(), container.get(i - 1).getTypeOfArray())) {
-                fillSheet(container, workbook.createSheet(container.get(i).getTypeOfArray()), id += Reflection.countOfRunArray*Reflection.countOfSortMethod);
+                fillSheet(container, workbook.createSheet(container.get(i).getTypeOfArray()), indexOfArrayContainer += Reflection.countOfRunArray*Reflection.countOfSortMethod);
             }
         }
         workbook.write(fileOutputStream);
