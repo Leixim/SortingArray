@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class Reflection {
-    static int countOfRunArray = 8;//count of sort runs for measuring different array sizes
+    static int countOfRunArray = 15;//count of sort runs for measuring different array sizes
     static int countOfSortMethod = 0;
     static int countOfCreateMethod = 0;
 
@@ -22,7 +22,7 @@ public class Reflection {
         for (Method createMethod : createArraysMethod) {
             if (createMethod.isAnnotationPresent(CreateMethod.class)) {
                 countOfCreateMethod++;
-                int sizeOfGeneratedArray = 1500;
+                int sizeOfGeneratedArray = 1000;
                 for (int i = 0; i < countOfRunArray; i++) {
                     int[] array = (int[]) createMethod.invoke(instanceOfCreateArray, sizeOfGeneratedArray);
                     for (Method sortMethod : sortArraysMethod) {
@@ -37,7 +37,7 @@ public class Reflection {
                             arrayInfoContainers.add(infoContainer);
                         }
                     }
-                    sizeOfGeneratedArray += 1500;
+                    sizeOfGeneratedArray +=1000 ;
                 }
                 System.out.println();
             }

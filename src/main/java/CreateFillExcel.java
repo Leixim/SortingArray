@@ -38,8 +38,12 @@ public class CreateFillExcel {
             int count = id;
             for (int colIndex = 1; colIndex <=Reflection.countOfRunArray; colIndex++) {
                 cell = row.createCell(colIndex);
-                if (rowIndex == 0) cell.setCellValue(container.get(count).getLengthOfArray());
-                else cell.setCellValue(container.get(count).getTimeOfSort());
+                if (rowIndex == 0) {
+                    cell.setCellValue(container.get(count).getLengthOfArray());
+                }
+                else {
+                    cell.setCellValue(container.get(count).getTimeOfSort());
+                }
                 count=count+Reflection.countOfSortMethod;
             }
 
@@ -47,8 +51,7 @@ public class CreateFillExcel {
                 cell = row.createCell(0);
                 cell.setCellValue("Length of array");
                 sheet.setColumnWidth(0, 6500);
-            }
-            if (rowIndex > 0) {
+            }else {
                 cell = row.createCell(0);
                 cell.setCellValue(container.get(id++).getNameOfSort());
                 sheet.setColumnWidth(0, 6500);
@@ -57,7 +60,7 @@ public class CreateFillExcel {
         }
 
         Drawing<?> drawing = sheet.createDrawingPatriarch();
-        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 7, 12, 25);
+        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 8, 16, 35);
         Chart chart = drawing.createChart(anchor);
         ChartLegend legend = chart.getOrCreateLegend();
         legend.setPosition(LegendPosition.BOTTOM);
