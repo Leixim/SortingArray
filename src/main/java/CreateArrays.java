@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class CreateArrays {
-    Random random = new Random();
+    private Random random = new Random();
 
     @CreateMethod(info = "Random Array")
     public int[] createRandomArray(int lengthOfArray) {
